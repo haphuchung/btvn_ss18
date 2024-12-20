@@ -1,60 +1,57 @@
 #include <stdio.h>
 
-struct SinhVien {
+struct sinhVien {
     int id;
     char name[50];
     int age;
-    char phoneNumber[20];
+    char phoneNumber[15];
 };
 
-int my_strlen(char str[]) {
-    int len = 0;
-    while (str[len] != '\0') {
-        len++;
-    }
-    return 0;
-}
-
 int main() {
-    struct SinhVien sinhVien[50];
-    int n = 5;
-    int i, idTimKiem;
+    struct sinhVien SV[50] = {
+        {1, "Phung Vuong", 18, "0123456789"},
+        {2, "Bui Vu", 18, "0123456788"},
+        {3, "Le Long", 18, "0123456777"},
+        {4, "Xuan Vinh", 18, "0123456666"},
+        {5, "Ha Hung", 18, "0123455555"}
+    };
 
-    for (i = 0; i < n; i++) {
-        sinhVien[i].id = i + 1;
+    int searchId;
+    int flag = 0;
+    printf("nhap id sinh vien can tim: ");
+    scanf("%d", &searchId);
+	fflush(stdin);
+    for(int i = 0; i < 5; i++){
+        if (SV[i].id == searchId){
+            flag = -1;
 
-    }
+            printf("sinh vien tim thay:\n");
+            printf("id: %d\n", SV[i].id);
+            printf("ten: %s\n", SV[i].name);
+            printf("tuoi: %d\n", SV[i].age);
+            printf("so dien thoai: %s\n", SV[i].phoneNumber);
 
-    printf("Nhap ID sinh vien can sua: ");
-    scanf("%d", &idTimKiem);
-    int found = 0;
-    for (i = 0; i < n; i++) {
-        if (sinhVien[i].id == idTimKiem) {
-            found = 1;
-            printf("Tim thay sinh vien co ID %d\n", idTimKiem);
-            printf("Nhap ten moi: ");
-            fgets(sinhVien[i].name, 50, stdin);
-            sinhVien[i].name[my_strlen(sinhVien[i].name) - 1] = '\0';
+            printf("nnhap ten moi cho sinh vien: ");
+            fgets(SV[i].name, sizeof(SV[i].name), stdin);
+            printf("nhap tuoi moi cho sinh vien: ");
+            scanf("%d", &SV[i].age);
+			fflush(stdin);
+        }
+    }   
 
-            printf("Nhap tuoi moi: ");
-            scanf("%d", &sinhVien[i].age);
-            getchar();
-            break;
+    if(!flag){
+        printf("khong tim thay sinh vien voi id %d\n", searchId);
+    }else{
+        printf("thong tin cac sinh vien sau khi sua:\n");
+        for (int i = 0; i < 5; i++) {
+            printf("sinh vien %d:\n", SV[i].id);
+            printf("id: %d\n", SV[i].id);
+            printf("ten: %s\n", SV[i].name);
+            printf("tuoi: %d\n", SV[i].age);
+            printf("so dien thoai: %s\n", SV[i].phoneNumber);
         }
     }
 
-    if (!found) {
-        printf("Khong tim thay sinh vien co ID %d\n", idTimKiem);
-    }
-
-    printf("\nThong tin cua cac sinh viên sau khi sua:\n");
-    for (i = 0; i < n; i++) {
-        printf("\nSinh vien thu %d:\n", i + 1);
-        printf("ID: %d\n", sinhVien[i].id);
-        printf("Ten: %s\n", sinhVien[i].name);
-        printf("Tuoi: %d\n", sinhVien[i].age);
-        printf("So dien thoai: %s\n", sinhVien[i].phoneNumber);
-    }
-
     return 0;
 }
+
